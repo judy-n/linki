@@ -1,0 +1,83 @@
+body {
+    background-color: #F0F0F0;
+    font-family: 'DM Sans', sans-serif;
+    margin: 5%;
+}
+
+h2 {
+    color: #D2D2D2;
+    font-weight: 400;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-btn {
+    background-color: white;
+    font-size: 1.5em;
+    width: 2rem;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 1px 15px 0 rgba(0,0,0,0.2);
+}
+
+.course {
+    background-color: white;
+    box-shadow: 0 1px 15px 0 rgba(0,0,0,0.2);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    row-gap: 0.5rem;
+}
+
+.course a {
+    color: #2D8CFF;
+    width: 100%;
+}
+
+.course h2 {
+    color: black;
+    font-weight: normal;
+    margin: 0;
+}
+
+.course p {
+    margin: 0;
+    width: 100%;
+}
+
+.passcode {
+    color: #B9B8B8;
+}
+
+.material-icons {
+    font-family: 'Material Icons', serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    color: #B9B8B8;
+    cursor: pointer;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.line i {
+    font-size: small;
+    opacity: 0;
+}
+.line :hover + .copy {
+    opacity: 1;
+}
+
+.copy:hover {
+    opacity: 1;
+}
