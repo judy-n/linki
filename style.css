@@ -22,6 +22,12 @@ h2 {
     border-radius: 5px;
     text-align: center;
     box-shadow: 0 1px 15px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color:  #2D8CFF;
+    color: white;
 }
 
 .course {
