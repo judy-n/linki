@@ -15,50 +15,43 @@ mb.on('ready', () => {
     // your app code here
     mb.window.openDevTools()
     mb.window.webContents.executeJavaScript(`
+        function newEl(tag, classes, attrs, children) {
+            const el = document.createElement(tag);
+            el.classList.add(...classes);
+            Object.keys(attrs).forEach(attr => {
+                el.setAttribute(attr, attrs[attr]);
+            });
+            children.forEach(child => {
+                el.appendChild(child);
+            });
+            return el;
+        }
+
+        function newText(text) {
+            return document.createTextNode(text);
+        }
+
         function addCourse() {
-            // main divs
-            const course = document.createElement('div');
-            const title = document.createElement('div');
-            const link_line = document.createElement('div');
-            const pass_line = document.createElement('div');
-            course.classList.add('course');
-            title.classList.add('title');
-            link_line.classList.add('line');
-            pass_line.classList.add('line');
-
-            // title div content
-            const className = document.createElement('h2');
-            className.appendChild(document.createTextNode("NEW"));
-            const i = document.createElement('i');
-            i.classList.add('material-icons');
-            i.appendChild(document.createTextNode('more_horiz'));
-            title.appendChild(className);
-            title.appendChild(i);
-
-            // link div content
-            const a = document.createElement('a');
-            a.setAttribute('href', 'https://utoronto.zoom.us/j/');
-            a.setAttribute('target', '_blank');
-            a.appendChild(document.createTextNode('https://utoronto.zoom.us/j/'));
-            const i_cp = document.createElement('i');
-            i_cp.classList.add('material-icons', 'copy');
-            i_cp.appendChild(document.createTextNode('content_copy'));
-            link_line.appendChild(a);
-            link_line.appendChild(i_cp);
-
-            // pass div content
-            const passText = document.createElement('span');
-            passText.classList.add('passcode');
-            passText.appendChild(document.createTextNode('Passcode: '));
-            const p = document.createElement('p');
-            p.appendChild(passText);
-            p.appendChild(document.createTextNode('123456'));
-            pass_line.appendChild(p);
-            pass_line.appendChild(i_cp);
-
-            course.appendChild(title);
-            course.appendChild(link_line);
-            course.appendChild(pass_line);
+            const course = newEl('div', ['course'], {}, [
+                // title
+                newEl('div', ['title'], {}, [
+                    newEl('h2', [], {}, [newText('NEW')]),
+                    newEl('i', ['material-icons'], {}, [newText('more_horiz')])
+                ]),
+                // link
+                newEl('div', ['line'], {}, [
+                    newEl('a', [], {'href': 'https://utoronto.zoom.us/j/', 'target': '_blank'}, [newText('https://utoronto.zoom.us/j/')]),
+                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                ]),
+                // pass
+                newEl('div', ['line'], {}, [
+                    newEl('p', [], {}, [
+                        newEl('span', ['passcode'], {}, [newText('Passcode: ')]),
+                        newText('123456')
+                    ]),
+                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                ])
+            ]);
 
             document.body.appendChild(course);
         }
