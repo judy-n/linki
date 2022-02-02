@@ -1,11 +1,11 @@
 body {
-    background-color: #F0F0F0;
+    background-color: #91a1b5;
     font-family: 'DM Sans', sans-serif;
     margin: 5%;
 }
 
 h2 {
-    color: #D2D2D2;
+    color: #708197;
     font-weight: 400;
 }
 
@@ -26,7 +26,7 @@ h2 {
 }
 
 .add-btn:hover {
-    background-color:  #2D8CFF;
+    background-color:  #708197;
     color: white;
 }
 
@@ -38,6 +38,7 @@ h2 {
     flex-direction: column;
     border-radius: 20px;
     row-gap: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 .course a {
