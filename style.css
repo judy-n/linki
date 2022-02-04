@@ -77,6 +77,10 @@ h2 {
     width: 100%;
 }
 
+.line a:focus-visible {
+    outline: none;
+}
+
 .line i {
     font-size: small;
     opacity: 0;
@@ -123,4 +127,35 @@ h2 {
 .menu .material-icons {
     font-size: large;
     color: #B9B8B8;
+}
+
+input {
+    border: solid 1px #B9B8B8;
+    border-radius: 5px;
+    padding: 10px;
+    width: 70%;
+    font-family: "DM Sans", sans-serif;
+    font-size: medium;
+}
+
+input:focus-visible {
+    border-color: #708197;
+    outline-color: #708197;
+}
+
+.btn-in {
+    border: none;
+    width: 20%;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: "DM Sans", sans-serif;
+    font-size: medium;
+    cursor: pointer;
+    background-color: #c1ccd7;
+    color: #708197;
+}
+
+.btn-in:hover {
+    background-color: #b3bdc9;
+    color: #708197;
 }

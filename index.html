@@ -100,10 +100,10 @@
                 const link_p = course.querySelector('.line')
                 const pass_p = course.querySelector('.passline')
                 // create inputs
-                const title_in = newEl('input', ['title-in'], {'placeholder': 'title'}, [newText(title || '')])
-                const link_in = newEl('input', ['link-in'], {'placeholder': 'link'}, [newText(pass || '')])
-                const pass_in = newEl('input', ['pass-in'], {'placeholder': 'passcode'}, [newText(pass || '')])
-                const btn = newEl('button', ['btn-in'], {'onclick': 'commitEdits(event)'}, [newText('save')])
+                const title_in = newEl('input', ['title-in'], {'placeholder': 'title', 'value': title}, [])
+                const link_in = newEl('input', ['link-in'], {'placeholder': 'link', 'value': link}, [])
+                const pass_in = newEl('input', ['pass-in'], {'placeholder': 'passcode', 'value': pass}, [])
+                const btn = newEl('button', ['btn-in'], {'onclick': 'commitEdits(event)'}, [newText('Save')])
                 // replace fields
                 title_p.removeChild(title_p.firstElementChild)
                 title_p.insertBefore(title_in, title_p.firstElementChild)
