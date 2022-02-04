@@ -96,9 +96,31 @@ h2 {
     left: 0;
     top: 0;
     background: white;
-    padding: 5px;
     border-radius: 5px;
+    box-shadow: 1px 1px 15px 0 rgba(0,0,0,0.2);
 }
 .hidden {
     visibility: hidden;
+}
+
+.menu a {
+    background-color: white;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-bottom: solid 1px #f1f1f1;
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+}
+
+.menu a:last-child {
+    border-bottom: none;
+}
+.menu a:hover {
+    background-color: #efefef;
+}
+
+.menu .material-icons {
+    font-size: large;
+    color: #B9B8B8;
 }
