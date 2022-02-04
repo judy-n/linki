@@ -9,7 +9,7 @@
     <script defer>
         let active = -1
         const setActive = (e, num) => {
-            active = 0
+            active = num
             const [top, left] = [e.pageY, e.pageX]
             const menu = document.querySelector('.menu')
             const { width } = menu.getBoundingClientRect()
@@ -21,9 +21,6 @@
                     menu.classList.add('hidden')
                 }
             })
-        }
-        const deleteActive = () => {
-            document.body.removeChild()
         }
 
         let numEls = 1
@@ -43,24 +40,23 @@
             return document.createTextNode(text);
         }
 
-        function addCourse() {
-            console.log(numEls)
-            const course = newEl('div', ['course'], {}, [
+        function addCourse(title='NEW', link="https://utoronto.zoom.us/j/", pass="123456") {
+            const course = newEl('div', ['course'], {'id': `course${numEls}`}, [
                 // title
                 newEl('div', ['title'], {}, [
-                    newEl('h2', [], {}, [newText('NEW')]),
+                    newEl('h2', [], {}, [newText(title)]),
                     newEl('i', ['material-icons'], {'onclick': `setActive(event, ${numEls})`}, [newText('more_horiz')])
                 ]),
                 // link
                 newEl('div', ['line'], {}, [
-                    newEl('a', [], {'href': 'https://utoronto.zoom.us/j/', 'target': '_blank'}, [newText('https://utoronto.zoom.us/j/')]),
+                    newEl('a', [], {'href': link, 'target': '_blank'}, [newText(link)]),
                     newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
                 ]),
                 // pass
-                newEl('div', ['line'], {}, [
+                newEl('div', ['line', 'passline'], {}, [
                     newEl('p', [], {}, [
                         newEl('span', ['passcode'], {}, [newText('Passcode: ')]),
-                        newText('123456')
+                        newText(pass)
                     ]),
                     newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
                 ])
@@ -68,8 +64,79 @@
 
             document.body.appendChild(course);
             numEls++
+            save()
         }
-        // console.log(document.querySelector('.add-btn').addEventListener('click', () => addCourse(numEls)));
+
+        function removeActive() {
+            if (active >= 0 && !!document.querySelector(`#course${active}`)) {
+                document.body.removeChild(document.querySelector(`#course${active}`))
+                document.querySelector('.menu').classList.add('hidden')
+                save()
+            }
+        }
+
+        function save() {
+            // save to local storage
+            let courses = [...document.querySelectorAll('.course')]
+            courses = courses.map(course => ({
+                    title: course.querySelector('h2').innerText,
+                    link: course.querySelector('a').innerText,
+                    pass: course.querySelector('p').innerText.substring(10)
+            }))
+            localStorage.setItem('__zoomlinks', JSON.stringify(courses))
+        }
+
+        function setActiveEdit() {
+            if (active >= 0) {
+                const course = document.querySelector(`#course${active}`)
+                // get text
+                const title = course.querySelector('h2').innerText
+                const link = course.querySelector('a').innerText
+                const pass = course.querySelector('p').innerText.substring(10)
+                // get replaced fields parents
+                const title_p = course.querySelector('.title')
+                const link_p = course.querySelector('.line')
+                const pass_p = course.querySelector('.passline')
+                // create inputs
+                const title_in = newEl('input', ['title-in'], {'placeholder': 'title'}, [newText(title || '')])
+                const link_in = newEl('input', ['link-in'], {'placeholder': 'link'}, [newText(pass || '')])
+                const pass_in = newEl('input', ['pass-in'], {'placeholder': 'passcode'}, [newText(pass || '')])
+                const btn = newEl('button', ['btn-in'], {'onclick': 'commitEdits(event)'}, [newText('save')])
+                // replace fields
+                title_p.removeChild(title_p.firstElementChild)
+                title_p.insertBefore(title_in, title_p.firstElementChild)
+                link_p.removeChild(link_p.firstElementChild)
+                link_p.insertBefore(link_in, link_p.firstElementChild)
+                pass_p.removeChild(pass_p.firstElementChild)
+                pass_p.insertBefore(pass_in, pass_p.firstElementChild)
+                course.appendChild(btn)
+            }
+        }
+
+        function commitEdits(e) {
+            const courseNum = parseInt(e.target.parentElement.getAttribute('id').substring(6))
+            const course = document.querySelector(`#course${courseNum}`)
+            // get values
+            const title = course.querySelector('.title-in').value
+            const link = course.querySelector('.link-in').value
+            const pass = 'Passcode: ' + course.querySelector('.pass-in').value
+            // get replaced inputs
+            const title_in = course.querySelectorAll('input')[0]
+            const link_in = course.querySelectorAll('input')[1]
+            const pass_in = course.querySelectorAll('input')[2]
+            // get replaced fields parents
+            const title_p = course.querySelector('.title')
+            const link_p = course.querySelector('.line')
+            const pass_p = course.querySelector('.passline')
+            // replace
+            // title_p.removeChild(title_p.firstElementChild)
+            // title_p.insertBefore(title_in, title_p.firstElementChild)
+            // link_p.removeChild(link_p.firstElementChild)
+            // link_p.insertBefore(link_in, link_p.firstElementChild)
+            // pass_p.removeChild(pass_p.firstElementChild)
+            // pass_p.insertBefore(pass_in, pass_p.firstElementChild)
+            // course.removeChild(btn)
+        }
     </script>
 </head>
 <body>
@@ -78,8 +145,8 @@
     <div class="add-btn" onclick="addCourse()">+</div>
 </div>
 <div class="menu hidden">
-    <button>edit</button>
-    <button>delete</button>
+    <button onclick="setActiveEdit()">edit</button>
+    <button onclick="removeActive()">delete</button>
 </div>
 <div class="course" id="course0">
     <div class="title">
@@ -90,8 +157,8 @@
         <a href="https://utoronto.zoom.us/j/" target="_blank">https://utoronto.zoom.us/j/</a>
         <i class="material-icons copy">content_copy</i>
     </div>
-    <div class="line">
-        <p><span class="passcode">Passcode: </span>123456</p>
+    <div class="line passline">
+        <p><span class="passcode">Passcode: </span><span class="code">123456</span></p>
         <i class="material-icons copy">content_copy</i>
     </div>
 </div>
