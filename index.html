@@ -67,7 +67,8 @@
             save()
         }
 
-        function removeActive() {
+        function removeActive(e) {
+            e.preventDefault()
             if (active >= 0 && !!document.querySelector(`#course${active}`)) {
                 document.body.removeChild(document.querySelector(`#course${active}`))
                 document.querySelector('.menu').classList.add('hidden')
@@ -86,7 +87,8 @@
             localStorage.setItem('__zoomlinks', JSON.stringify(courses))
         }
 
-        function setActiveEdit() {
+        function setActiveEdit(e) {
+            e.preventDefault()
             if (active >= 0) {
                 const course = document.querySelector(`#course${active}`)
                 // get text
@@ -114,6 +116,7 @@
         }
 
         function commitEdits(e) {
+            e.preventDefault()
             const courseNum = parseInt(e.target.parentElement.getAttribute('id').substring(6))
             const course = document.querySelector(`#course${courseNum}`)
             // get values
@@ -145,8 +148,8 @@
     <div class="add-btn" onclick="addCourse()">+</div>
 </div>
 <div class="menu hidden">
-    <button onclick="setActiveEdit()">edit</button>
-    <button onclick="removeActive()">delete</button>
+    <a onclick="setActiveEdit(event)">Edit <span class="material-icons">edit</span></a>
+    <a onclick="removeActive(event)">Delete <span class="material-icons">delete</span></a>
 </div>
 <div class="course" id="course0">
     <div class="title">
