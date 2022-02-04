@@ -6,16 +6,34 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Zoom Links</title>
+    <script defer>
+        let active = -1
+        const setActive = (e) => {
+            const [top, left] = [e.pageY, e.pageX]
+            const menu = document.querySelector('.menu')
+            const { width } = menu.getBoundingClientRect()
+            menu.classList.remove('hidden')
+            menu.style.top = `${top}px`
+            menu.style.left = `${left - width}px`
+        }
+        const deleteActive = () => {
+            document.body.removeChild()
+        }
+    </script>
 </head>
 <body>
 <div class="title">
     <h2>Zoom Links</h2>
     <div class="add-btn">+</div>
 </div>
-<div class="course">
+<div class="menu hidden">
+    <button>edit</button>
+    <button>delete</button>
+</div>
+<div class="course" id="course0">
     <div class="title">
         <h2>CSC373</h2>
-        <i class="material-icons">more_horiz</i>
+        <i class="material-icons" onclick="setActive(event)">more_horiz</i>
     </div>
     <div class="line">
         <a href="https://utoronto.zoom.us/j/" target="_blank">https://utoronto.zoom.us/j/</a>

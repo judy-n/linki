@@ -88,3 +88,17 @@ h2 {
 .copy:hover {
     opacity: 1;
 }
+
+.menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+.hidden {
+    visibility: hidden;
+}

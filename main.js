@@ -1,4 +1,5 @@
 const { menubar } = require('menubar');
+const store = require('electron-localstorage');
 
 const mb = menubar({
     preloadWindow: true,
@@ -57,8 +58,6 @@ mb.on('ready', () => {
         }
         console.log(document.querySelector('.add-btn').addEventListener('click', addCourse));
     `)
-    // let button = document.querySelector('.button')
-    // button.addEventListener('click', () => {addCourse()})
 });
 
 function addCourse(){
