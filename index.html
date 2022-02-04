@@ -8,23 +8,74 @@
     <title>Zoom Links</title>
     <script defer>
         let active = -1
-        const setActive = (e) => {
+        const setActive = (e, num) => {
+            active = 0
             const [top, left] = [e.pageY, e.pageX]
             const menu = document.querySelector('.menu')
             const { width } = menu.getBoundingClientRect()
             menu.classList.remove('hidden')
             menu.style.top = `${top}px`
             menu.style.left = `${left - width}px`
+            document.addEventListener('click', (ev) => {
+                if (ev.target.innerText !== "more_horiz" && ev.target !== menu && ![...menu.childNodes].includes(ev.target)) {
+                    menu.classList.add('hidden')
+                }
+            })
         }
         const deleteActive = () => {
             document.body.removeChild()
         }
+
+        let numEls = 1
+        function newEl(tag, classes, attrs, children) {
+            const el = document.createElement(tag);
+            el.classList.add(...classes);
+            Object.keys(attrs).forEach(attr => {
+                el.setAttribute(attr, attrs[attr]);
+            });
+            children.forEach(child => {
+                el.appendChild(child);
+            });
+            return el;
+        }
+
+        function newText(text) {
+            return document.createTextNode(text);
+        }
+
+        function addCourse() {
+            console.log(numEls)
+            const course = newEl('div', ['course'], {}, [
+                // title
+                newEl('div', ['title'], {}, [
+                    newEl('h2', [], {}, [newText('NEW')]),
+                    newEl('i', ['material-icons'], {'onclick': `setActive(event, ${numEls})`}, [newText('more_horiz')])
+                ]),
+                // link
+                newEl('div', ['line'], {}, [
+                    newEl('a', [], {'href': 'https://utoronto.zoom.us/j/', 'target': '_blank'}, [newText('https://utoronto.zoom.us/j/')]),
+                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                ]),
+                // pass
+                newEl('div', ['line'], {}, [
+                    newEl('p', [], {}, [
+                        newEl('span', ['passcode'], {}, [newText('Passcode: ')]),
+                        newText('123456')
+                    ]),
+                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                ])
+            ]);
+
+            document.body.appendChild(course);
+            numEls++
+        }
+        // console.log(document.querySelector('.add-btn').addEventListener('click', () => addCourse(numEls)));
     </script>
 </head>
 <body>
 <div class="title">
     <h2>Zoom Links</h2>
-    <div class="add-btn">+</div>
+    <div class="add-btn" onclick="addCourse()">+</div>
 </div>
 <div class="menu hidden">
     <button>edit</button>
@@ -33,7 +84,7 @@
 <div class="course" id="course0">
     <div class="title">
         <h2>CSC373</h2>
-        <i class="material-icons" onclick="setActive(event)">more_horiz</i>
+        <i class="material-icons" onclick="setActive(event, 0)">more_horiz</i>
     </div>
     <div class="line">
         <a href="https://utoronto.zoom.us/j/" target="_blank">https://utoronto.zoom.us/j/</a>
