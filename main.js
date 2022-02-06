@@ -1,6 +1,6 @@
 const { menubar } = require('menubar');
 const store = require('electron-localstorage');
-
+const { clipboard } = require('electron')
 const mb = menubar({
     preloadWindow: true,
     browserWindow: {

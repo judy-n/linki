@@ -50,15 +50,15 @@
                 // link
                 newEl('div', ['line'], {}, [
                     newEl('a', [], {'href': link, 'target': '_blank'}, [newText(link)]),
-                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                    newEl('i', ['material-icons', 'copy'], {'onclick': `copyToClipboard(event)`}, [newText('content_copy')])
                 ]),
                 // pass
                 newEl('div', ['line', 'passline'], {}, [
                     newEl('p', [], {}, [
                         newEl('span', ['passcode'], {}, [newText('Passcode: ')]),
-                        newText(pass)
+                        newEl('span', ['code'], {}, [newText(pass)])
                     ]),
-                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                    newEl('i', ['material-icons', 'copy'], {'onclick': `copyToClipboard(event)`}, [newText('content_copy')])
                 ])
             ]);
 
@@ -140,6 +140,16 @@
             // pass_p.insertBefore(pass_in, pass_p.firstElementChild)
             // course.removeChild(btn)
         }
+
+        function copyToClipboard(e) {
+            e.preventDefault()
+            let pass = e.target.previousElementSibling.querySelector('.code')
+            if (pass) {
+                console.log(pass.innerText)
+            } else {
+                console.log(e.target.previousElementSibling.innerText)
+            }
+        }
     </script>
 </head>
 <body>
@@ -158,11 +168,11 @@
     </div>
     <div class="line">
         <a href="https://utoronto.zoom.us/j/" target="_blank">https://utoronto.zoom.us/j/</a>
-        <i class="material-icons copy">content_copy</i>
+        <i onclick="copyToClipboard(event)" class="material-icons copy">content_copy</i>
     </div>
     <div class="line passline">
         <p><span class="passcode">Passcode: </span><span class="code">123456</span></p>
-        <i class="material-icons copy">content_copy</i>
+        <i onclick="copyToClipboard(event)" class="material-icons copy">content_copy</i>
     </div>
 </div>
 </body>
