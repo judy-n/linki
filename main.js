@@ -1,5 +1,5 @@
 const { menubar } = require('menubar');
-
+const { clipboard } = require('electron')
 const mb = menubar({
     preloadWindow: true,
     browserWindow: {

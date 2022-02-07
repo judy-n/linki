@@ -53,15 +53,15 @@
                 // link
                 newEl('div', ['line'], {}, [
                     newEl('a', [], {'href': link, 'target': '_blank'}, [newText(link)]),
-                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                    newEl('i', ['material-icons', 'copy'], {'onclick': `copyToClipboard(event)`}, [newText('content_copy')])
                 ]),
                 // pass
                 newEl('div', ['line', 'passline'], {}, [
                     newEl('p', [], {}, [
                         newEl('span', ['passcode'], {}, [newText('Passcode: ')]),
-                        newText(pass)
+                        newEl('span', ['code'], {}, [newText(pass)])
                     ]),
-                    newEl('i', ['material-icons', 'copy'], {}, [newText('content_copy')])
+                    newEl('i', ['material-icons', 'copy'], {'onclick': `copyToClipboard(event)`}, [newText('content_copy')])
                 ])
             ]);
 
@@ -160,6 +160,16 @@
             )
             course.removeChild(course.lastElementChild)
             save()
+        }
+
+        function copyToClipboard(e) {
+            e.preventDefault()
+            let pass = e.target.previousElementSibling.querySelector('.code')
+            if (pass) {
+                console.log(pass.innerText)
+            } else {
+                console.log(e.target.previousElementSibling.innerText)
+            }
         }
     </script>
 </head>
