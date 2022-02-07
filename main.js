@@ -1,6 +1,9 @@
 const { menubar } = require('menubar');
-const { clipboard } = require('electron')
+const path = require('path')
+const zlIcon = path.join(__dirname, 'zl2.png')
+
 const mb = menubar({
+    icon: zlIcon,
     preloadWindow: true,
     browserWindow: {
         webPreferences: {
@@ -14,9 +17,9 @@ require('electron-reload')(__dirname);
 mb.on('ready', () => {
     console.log('app is ready');
     // your app code here
-    mb.window.openDevTools()
+    // mb.window.openDevTools()
     // mb.window.webContents.executeJavaScript(`
-        
+
     // `)
 });
 

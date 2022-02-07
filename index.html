@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Zoom Links</title>
     <script defer>
+        const { clipboard } = require('electron')
         const Store = require('electron-store');
         const store = new Store()
-        
+
         let active = -1
         const setActive = (e, num) => {
             active = num
@@ -147,7 +148,7 @@
             title_p.insertBefore(newEl('h2', [], {}, [newText(title)]), title_p.firstElementChild)
             link_p.removeChild(link_p.firstElementChild)
             link_p.insertBefore(
-                newEl('a', [], {'href': link, 'target': '_blank'}, [newText(link)]), 
+                newEl('a', [], {'href': link, 'target': '_blank'}, [newText(link)]),
                 link_p.firstElementChild
             )
             pass_p.removeChild(pass_p.firstElementChild)
@@ -155,7 +156,7 @@
                 newEl('p', [], {}, [
                     newEl('span', ['passcode'], {}, [newText('Passcode: ')]),
                     newText(pass)
-                ]), 
+                ]),
                 pass_p.firstElementChild
             )
             course.removeChild(course.lastElementChild)
@@ -166,9 +167,9 @@
             e.preventDefault()
             let pass = e.target.previousElementSibling.querySelector('.code')
             if (pass) {
-                console.log(pass.innerText)
+                clipboard.writeText(pass.innerText)
             } else {
-                console.log(e.target.previousElementSibling.innerText)
+                clipboard.writeText(e.target.previousElementSibling.innerText)
             }
         }
     </script>
