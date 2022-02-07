@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Zoom Links</title>
     <script defer>
+        const Store = require('electron-store');
+        const store = new Store()
+        
         let active = -1
         const setActive = (e, num) => {
             active = num
@@ -40,7 +43,7 @@
             return document.createTextNode(text);
         }
 
-        function addCourse(title='NEW', link="https://utoronto.zoom.us/j/", pass="123456") {
+        function addCourse(title='NEW', link="https://utoronto.zoom.us/j/", pass="123456", does_save=true) {
             const course = newEl('div', ['course'], {'id': `course${numEls}`}, [
                 // title
                 newEl('div', ['title'], {}, [
@@ -64,7 +67,7 @@
 
             document.body.appendChild(course);
             numEls++
-            save()
+            if (does_save) save()
         }
 
         function removeActive(e) {
@@ -84,7 +87,15 @@
                     link: course.querySelector('a').innerText,
                     pass: course.querySelector('p').innerText.substring(10)
             }))
-            localStorage.setItem('__zoomlinks', JSON.stringify(courses))
+            store.set('__zoomlinks', JSON.stringify(courses))
+        }
+
+        function load() {
+            const courses = JSON.parse(store.get('__zoomlinks') || '[]')
+            console.log('got', courses)
+            courses.forEach(course => {
+                addCourse(course.title, course.link, course.pass, false)
+            })
         }
 
         function setActiveEdit(e) {
@@ -100,9 +111,9 @@
                 const link_p = course.querySelector('.line')
                 const pass_p = course.querySelector('.passline')
                 // create inputs
-                const title_in = newEl('input', ['title-in'], {'placeholder': 'title'}, [newText(title || '')])
-                const link_in = newEl('input', ['link-in'], {'placeholder': 'link'}, [newText(pass || '')])
-                const pass_in = newEl('input', ['pass-in'], {'placeholder': 'passcode'}, [newText(pass || '')])
+                const title_in = newEl('input', ['title-in'], {'placeholder': 'title', 'value': title || ''}, [])
+                const link_in = newEl('input', ['link-in'], {'placeholder': 'link', 'value': link || ''}, [])
+                const pass_in = newEl('input', ['pass-in'], {'placeholder': 'passcode', 'value': pass || ''}, [])
                 const btn = newEl('button', ['btn-in'], {'onclick': 'commitEdits(event)'}, [newText('save')])
                 // replace fields
                 title_p.removeChild(title_p.firstElementChild)
@@ -122,7 +133,7 @@
             // get values
             const title = course.querySelector('.title-in').value
             const link = course.querySelector('.link-in').value
-            const pass = 'Passcode: ' + course.querySelector('.pass-in').value
+            const pass = course.querySelector('.pass-in').value
             // get replaced inputs
             const title_in = course.querySelectorAll('input')[0]
             const link_in = course.querySelectorAll('input')[1]
@@ -132,17 +143,27 @@
             const link_p = course.querySelector('.line')
             const pass_p = course.querySelector('.passline')
             // replace
-            // title_p.removeChild(title_p.firstElementChild)
-            // title_p.insertBefore(title_in, title_p.firstElementChild)
-            // link_p.removeChild(link_p.firstElementChild)
-            // link_p.insertBefore(link_in, link_p.firstElementChild)
-            // pass_p.removeChild(pass_p.firstElementChild)
-            // pass_p.insertBefore(pass_in, pass_p.firstElementChild)
-            // course.removeChild(btn)
+            title_p.removeChild(title_p.firstElementChild)
+            title_p.insertBefore(newEl('h2', [], {}, [newText(title)]), title_p.firstElementChild)
+            link_p.removeChild(link_p.firstElementChild)
+            link_p.insertBefore(
+                newEl('a', [], {'href': link, 'target': '_blank'}, [newText(link)]), 
+                link_p.firstElementChild
+            )
+            pass_p.removeChild(pass_p.firstElementChild)
+            pass_p.insertBefore(
+                newEl('p', [], {}, [
+                    newEl('span', ['passcode'], {}, [newText('Passcode: ')]),
+                    newText(pass)
+                ]), 
+                pass_p.firstElementChild
+            )
+            course.removeChild(course.lastElementChild)
+            save()
         }
     </script>
 </head>
-<body>
+<body onload="load()">
 <div class="title">
     <h2>Zoom Links</h2>
     <div class="add-btn" onclick="addCourse()">+</div>
@@ -150,20 +171,6 @@
 <div class="menu hidden">
     <a onclick="setActiveEdit(event)">Edit <span class="material-icons">edit</span></a>
     <a onclick="removeActive(event)">Delete <span class="material-icons">delete</span></a>
-</div>
-<div class="course" id="course0">
-    <div class="title">
-        <h2>CSC373</h2>
-        <i class="material-icons" onclick="setActive(event, 0)">more_horiz</i>
-    </div>
-    <div class="line">
-        <a href="https://utoronto.zoom.us/j/" target="_blank">https://utoronto.zoom.us/j/</a>
-        <i class="material-icons copy">content_copy</i>
-    </div>
-    <div class="line passline">
-        <p><span class="passcode">Passcode: </span><span class="code">123456</span></p>
-        <i class="material-icons copy">content_copy</i>
-    </div>
 </div>
 </body>
 </html>
