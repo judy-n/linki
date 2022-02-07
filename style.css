@@ -1,11 +1,12 @@
 body {
-    background-color: #91a1b5;
+    /*background-color: #91a1b5;*/
+    background-color: #ebebeb;
     font-family: 'DM Sans', sans-serif;
     margin: 5%;
 }
 
 h2 {
-    color: #708197;
+    color: #d1d0d0;
     font-weight: 400;
 }
 
@@ -158,4 +159,11 @@ input:focus-visible {
 .btn-in:hover {
     background-color: #b3bdc9;
     color: #708197;
+}
+
+
+.copied {
+    transition-delay: 0.5s;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
 }

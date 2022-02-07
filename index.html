@@ -168,8 +168,16 @@
             let pass = e.target.previousElementSibling.querySelector('.code')
             if (pass) {
                 clipboard.writeText(pass.innerText)
+                e.target.innerHTML = `<span class="copied">Copied!</span>`
+                setTimeout(() =>
+                    e.target.innerHTML = "content_copy"
+                , 2000)
             } else {
                 clipboard.writeText(e.target.previousElementSibling.innerText)
+                e.target.innerHTML = `<span class="copied">Copied!</span>`
+                setTimeout(() =>
+                        e.target.innerHTML = "content_copy"
+                    , 2000)
             }
         }
     </script>
