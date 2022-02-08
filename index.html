@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>Zoom Links</title>
+    <title>Linki</title>
     <script defer>
         const { clipboard } = require('electron')
         const Store = require('electron-store');
@@ -115,7 +115,7 @@
                 const title_in = newEl('input', ['title-in'], {'placeholder': 'title', 'value': title || ''}, [])
                 const link_in = newEl('input', ['link-in'], {'placeholder': 'link', 'value': link || ''}, [])
                 const pass_in = newEl('input', ['pass-in'], {'placeholder': 'passcode', 'value': pass || ''}, [])
-                const btn = newEl('button', ['btn-in'], {'onclick': 'commitEdits(event)'}, [newText('save')])
+                const btn = newEl('button', ['btn-in'], {'onclick': 'commitEdits(event)'}, [newText('Save')])
                 // replace fields
                 title_p.removeChild(title_p.firstElementChild)
                 title_p.insertBefore(title_in, title_p.firstElementChild)
@@ -184,7 +184,7 @@
 </head>
 <body onload="load()">
 <div class="title">
-    <h2>Zoom Links</h2>
+    <h2>Linki</h2>
     <div class="add-btn" onclick="addCourse()">+</div>
 </div>
 <div class="menu hidden">
