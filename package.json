@@ -5,13 +5,30 @@
     "menubar": "^9.1.1"
   },
   "devDependencies": {
-    "electron": "^16.0.8"
+    "electron": "^16.0.8",
+    "electron-builder": "^22.14.13",
+    "electron-installer-zip": "^0.1.2",
+    "electron-packager": "^15.4.0"
   },
   "scripts": {
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "start": "electron ."
   },
-  "name": "zoomlinks",
+  "name": "Linki",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "main.js"
+  "main": "main.js",
+  "build": {
+    "appId": "com.Judy.Linki",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "linki.icns"
+    },
+    "win": {
+      "icon": "linki.ico"
+    }
+
+  },
+  "postinstall": "electron-builder install-app-deps"
 }
