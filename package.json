@@ -11,11 +11,11 @@
     "electron-packager": "^15.4.0"
   },
   "scripts": {
+    "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "start": "electron ."
+    "dist": "electron-builder"
   },
-  "name": "linki",
+  "name": "Linki",
   "version": "0.0.0",
   "license": "MIT",
   "main": "main.js",
@@ -28,6 +28,7 @@
     "win": {
       "icon": "linki.ico"
     }
+
   },
   "postinstall": "electron-builder install-app-deps"
 }
