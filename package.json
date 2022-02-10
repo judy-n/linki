@@ -15,7 +15,7 @@
     "dist": "electron-builder",
     "start": "electron ."
   },
-  "name": "Linki",
+  "name": "linki",
   "version": "0.0.0",
   "license": "MIT",
   "main": "main.js",
@@ -28,7 +28,6 @@
     "win": {
       "icon": "linki.ico"
     }
-
   },
   "postinstall": "electron-builder install-app-deps"
 }

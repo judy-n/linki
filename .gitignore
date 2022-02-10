@@ -2,5 +2,6 @@
 # Dependency directories
 node_modules/
 jspm_packages/
+dist
 
 package-lock.json
