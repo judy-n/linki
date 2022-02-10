@@ -17,14 +17,6 @@ let ipc = require('electron').ipcRenderer
 require('electron-reload')(__dirname);
 mb.on('ready', () => {
     console.log('app is ready');
-    // your app code here
-    // mb.app.quit()
-    mb.window.openDevTools()
-    // mb.window.webContents.executeJavaScript(`
-    //     document.querySelector("#q-btn").addEventListener("click", () => {
-    //         mb.app.quit();
-    //     })
-    // `)
     mb.window.on('close', () => mb.app.quit())
 });
 
