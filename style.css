@@ -167,3 +167,19 @@ input:focus-visible {
     font-family: "DM Sans", sans-serif;
     font-weight: 500;
 }
+
+#q-btn {
+    border: none;
+    background-color: white;
+    color: #b9b9b9;
+    font-family: "DM Sans", sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#q-btn:hover {
+    background-color: #f5f5f5;
+}
+
+#q-btn:focus-visible {
+    outline: none;
+}

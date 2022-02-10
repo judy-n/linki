@@ -28,7 +28,6 @@
     "win": {
       "icon": "linki.ico"
     }
-
   },
   "postinstall": "electron-builder install-app-deps"
 }
