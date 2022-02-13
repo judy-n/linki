@@ -1,6 +1,6 @@
 const { menubar } = require('menubar');
 const path = require('path')
-const zlIcon = path.join(__dirname, 'zl2.png')
+const zlIcon = path.join(__dirname, './images/zl2.png')
 
 const mb = menubar({
     icon: zlIcon,
