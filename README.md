@@ -16,4 +16,18 @@ Linki is a free menubar app for quick access to your recurring meeting links
 </a>
 <br>
 </p>
+<br>
 
+Easy access to all your recurring links from your menubar!
+> Tired of having to check the syllabus or course website every time you want 
+> the Zoom link? Linki puts them all in one place.
+
+<img src="./images/preview.png">
+
+Linki is completely free and cross-platform on macOS and Windows
+> Download it using the links above!
+
+### Made with
+
+- [Electron](https://www.electronjs.org)
+- [menubar](https://github.com/maxogden/menubar)
